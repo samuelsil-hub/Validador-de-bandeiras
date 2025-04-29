@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identificador de Bandeira de Cartão</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        input, button { padding: 10px; font-size: 16px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Teste de Identificação de Bandeira</h2>
+    <input type="text" id="numeroCartao" placeholder="Digite o número do cartão" maxlength="6">
+    <button onclick="verificarBandeira()">Identificar</button>
+    <p id="resultado"></p>
+
+    <script>
+        function identificarBandeira(numeroCartao) {
+            const bin = numeroCartao.substring(0, 6); 
+            if (/^4/.test(bin)) return "Visa";
+            if (/^5[1-5]/.test(bin) || /^(2221|2720)/.test(bin)) return "MasterCard";
+            if (/^(4011|4312|4389)/.test(bin)) return "Elo";
+            if (/^3[47]/.test(bin)) return "American Express";
+            if (/^(6011|65|64[4-9])/.test(bin)) return "Discover";
+            if (/^6062/.test(bin)) return "Hipercard";
+            if (/^3[6,8]/.test(bin)) return "Diners Club";
+            if (/^(2014|2149)/.test(bin)) return "EnRoute";
+            if (/^35/.test(bin)) return "JCB";
+            if (/^50/.test(bin)) return "Aura";
+
+            return "Bandeira não identificada";
+        }
+
+        function verificarBandeira() {
+            const numeroCartao = document.getElementById("numeroCartao").value;
+            const resultado = identificarBandeira(numeroCartao);
+            document.getElementById("resultado").innerText = "Bandeira: " + resultado;
+        }
+    </script>
+</body>
+</html>
